@@ -4,9 +4,6 @@ import "leaflet/dist/leaflet.css";
 import * as GeoTIFF from "geotiff";
 import L from "leaflet";
 import {
-  PieChart, Pie, Cell, Tooltip as ReTooltip,
-} from "recharts";
-import {
   Layers, Thermometer, Map,
   Activity, Satellite, Globe, Database,
 } from "lucide-react";
@@ -68,11 +65,6 @@ const DATA_SOURCES = [
 const sectionLabel: React.CSSProperties = {
   fontSize: 11, fontWeight: 700, color: "#374151",
   marginBottom: 10, textTransform: "uppercase", letterSpacing: "0.06em",
-};
-
-const rechartTooltipStyle: React.CSSProperties = {
-  background: "#fff", border: "1px solid #e5e7eb",
-  borderRadius: 10, boxShadow: "0 4px 16px rgba(0,0,0,0.08)", fontSize: 11,
 };
 
 // ─── Card ─────────────────────────────────────────────────────────────────────
