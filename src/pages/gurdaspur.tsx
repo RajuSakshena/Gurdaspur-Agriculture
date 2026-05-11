@@ -598,11 +598,10 @@ function InfoTab({ activeLayer, onClose }: { activeLayer: LayerType; onClose: ()
 
 // ─── Analytics Panel ──────────────────────────────────────────────────────────
 
-function AnalyticsContent({ stats, week, annualMeans, activeLayer }: {
+function AnalyticsContent({ stats, week, annualMeans }: {
   stats: RealTempStats | null;
   week: number;
   annualMeans: AnnualMeans | null;
-  activeLayer: LayerType;
 }) {
   const donutData = useMemo(() => {
     if (!stats) return null;
@@ -821,63 +820,6 @@ const LAYER_ACTIVE_COLORS: Record<LayerType, { bg: string; border: string; text:
   soil:        { bg: "#f7fee7", border: "#d9f99d", text: "#65a30d" },
 };
 
-function LayerSwitcher({ activeLayer, setActiveLayer }: { activeLayer: LayerType; setActiveLayer: (l: LayerType) => void }) {
-  return (
-    <div style={{
-      position: "absolute", top: 16, left: 16, zIndex: 700,
-      display: "flex", flexDirection: "column", gap: 4,
-    }}>
-      <div style={{
-        background: "rgba(255,255,255,0.97)",
-        border: "1px solid #e5e7eb",
-        borderRadius: 14,
-        boxShadow: "0 4px 20px rgba(0,0,0,0.10)",
-        padding: "8px 8px",
-        display: "flex",
-        flexDirection: "column",
-        gap: 4,
-        minWidth: 92,
-      }}>
-        <span style={{ fontSize: 8.5, fontWeight: 700, color: "#9ca3af", textTransform: "uppercase", letterSpacing: "0.08em", textAlign: "center", marginBottom: 2 }}>
-          Layer
-        </span>
-        {LAYER_ORDER.map(layer => {
-          const meta = LAYER_META[layer];
-          const isActive = activeLayer === layer;
-          const ac = LAYER_ACTIVE_COLORS[layer];
-          return (
-            <button
-              key={layer}
-              onClick={() => setActiveLayer(layer)}
-              title={meta.name}
-              style={{
-                display: "flex", alignItems: "center", gap: 6,
-                padding: "6px 10px",
-                borderRadius: 9,
-                border: isActive ? `1px solid ${ac.border}` : "1px solid transparent",
-                background: isActive ? ac.bg : "transparent",
-                cursor: "pointer",
-                transition: "all 0.15s",
-                width: "100%",
-              }}
-              onMouseEnter={e => { if (!isActive) (e.currentTarget as HTMLButtonElement).style.background = "#f8fafc"; }}
-              onMouseLeave={e => { if (!isActive) (e.currentTarget as HTMLButtonElement).style.background = "transparent"; }}
-            >
-              <span style={{ fontSize: 15, lineHeight: 1, flexShrink: 0 }}>{meta.emoji}</span>
-              <span style={{
-                fontSize: 10.5, fontWeight: isActive ? 700 : 500,
-                color: isActive ? ac.text : "#6b7280",
-                whiteSpace: "nowrap",
-              }}>
-                {meta.label}
-              </span>
-            </button>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
 
 // ─── Canvas Layer ─────────────────────────────────────────────────────────────
 
@@ -1728,7 +1670,7 @@ export default function Gurdaspur() {
           </p>
         </div>
         <div style={{ padding: "12px 12px 20px" }}>
-          <AnalyticsContent stats={realStats} week={week} annualMeans={annualMeans} activeLayer={activeLayer} />
+          <AnalyticsContent stats={realStats} week={week} annualMeans={annualMeans} />
         </div>
       </aside>
     </div>
